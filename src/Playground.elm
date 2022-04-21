@@ -1,6 +1,7 @@
 module Playground exposing (main)
 
 import Html
+import Regex
 
 
 computeSpeed distance time =
@@ -48,8 +49,126 @@ divide e f =
     e / f
 
 
+weekday dayInNumber =
+    case dayInNumber of
+        0 ->
+            "Sunday"
+
+        1 ->
+            "Monday"
+
+        2 ->
+            "Tuesday"
+
+        3 ->
+            "Wednesday"
+
+        4 ->
+            "Thursday"
+
+        5 ->
+            "Friday"
+
+        6 ->
+            "Saturday"
+
+        _ ->
+            "Unknown day"
+
+
+hashtag dayInNumber =
+    case weekday dayInNumber of
+        "Sunday" ->
+            "#SinDay"
+
+        "Monday" ->
+            "#MondayBlues"
+
+        "Tuesday" ->
+            "#TakeMeBackTuesday"
+
+        "Wednesday" ->
+            "#HumpDay"
+
+        "Thursday" ->
+            "#ThrowbackThursday"
+
+        "Friday" ->
+            "#FlashBackFriday"
+
+        "Saturday" ->
+            "#SaturdaysAreForTheBoys"
+
+        _ ->
+            "#Whatevs"
+
+
+descending a b =
+    case compare a b of
+        LT ->
+            GT
+
+        GT ->
+            LT
+
+        EQ ->
+            EQ
+
+
+evilometer character1 character2 =
+    case ( character1, character2 ) of
+        ( "Joffrey", "Ramsay" ) ->
+            LT
+
+        ( "Joffrey", "Night King" ) ->
+            LT
+
+        ( "Ramsay", "Joffrey" ) ->
+            GT
+
+        ( "Ramsay", "Night King" ) ->
+            LT
+
+        ( "Night King", "Joffrey" ) ->
+            GT
+
+        ( "Night King", "Ramsay" ) ->
+            GT
+
+        _ ->
+            GT
+
+
+validateEmail email =
+    let
+        emailPattern =
+            "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"
+
+        regex =
+            Maybe.withDefault Regex.never <|
+                Regex.fromString emailPattern
+
+        isValid =
+            Regex.contains regex email
+    in
+    if isValid then
+        ( "Valid emal", "green" )
+
+    else
+        ( "Invalid email", "red" )
+
+
+multiplyByFive number =
+    let
+        multiplier =
+            5
+    in
+    number * multiplier
+
+
 main =
-    escapeEarth 10 6.7 "low"
+    multiplyByFive 3
+        |> String.fromInt
         |> Html.text
 
 
