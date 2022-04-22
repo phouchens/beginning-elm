@@ -854,6 +854,43 @@ var _List_sortWith = F2(function(f, xs)
 
 
 
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
 // MATH
 
 var _Basics_add = F2(function(a, b) { return a + b; });
@@ -1223,43 +1260,6 @@ function _String_fromList(chars)
 	return _List_toArray(chars).join('');
 }
 
-
-
-
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
-};
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
 
 
 
@@ -2597,7 +2597,11 @@ var $author$project$Test$Reporter$Reporter$ConsoleReport = function (a) {
 	return {$: 'ConsoleReport', a: a};
 };
 var $author$project$Console$Text$UseColor = {$: 'UseColor'};
-var $elm$core$Basics$add = _Basics_add;
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $author$project$RippleCarryAdder$andGate = F2(
+	function (a, b) {
+		return a & b;
+	});
 var $elm$core$Basics$apL = F2(
 	function (f, x) {
 		return f(x);
@@ -2641,6 +2645,7 @@ var $elm$core$Basics$composeR = F3(
 		return g(
 			f(x));
 	});
+var $elm$core$Basics$add = _Basics_add;
 var $elm$core$List$foldl = F3(
 	function (func, acc, list) {
 		foldl:
@@ -3109,29 +3114,6 @@ var $elm_explorations$test$Test$test = F2(
 						]);
 				}));
 	});
-var $author$project$Example$additionTests = A2(
-	$elm_explorations$test$Test$describe,
-	'Addition',
-	_List_fromArray(
-		[
-			A2(
-			$elm_explorations$test$Test$test,
-			'two plus two equals four',
-			function (_v0) {
-				return A2($elm_explorations$test$Expect$equal, 4, 2 + 2);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'three plus four equals seven',
-			function (_v1) {
-				return A2($elm_explorations$test$Expect$equal, 7, 3 + 4);
-			})
-		]));
-var $elm$core$Bitwise$and = _Bitwise_and;
-var $author$project$RippleCarryAdder$andGate = F2(
-	function (a, b) {
-		return a & b;
-	});
 var $author$project$RippleCarryAdderTests$andGateTests = A2(
 	$elm_explorations$test$Test$describe,
 	'AndGate tests',
@@ -3175,84 +3157,6 @@ var $author$project$Test$Runner$Node$checkHelperReplaceMe___ = function (_v0) {
 		})('The regex for replacing this Debug.todo with some real code must have failed since you see this message!\n\nPlease report this bug: https://github.com/rtfeldman/node-test-runner/issues/new\n');
 };
 var $author$project$Test$Runner$Node$check = value => value && value.__elmTestSymbol === __elmTestSymbol ? $elm$core$Maybe$Just(value) : $elm$core$Maybe$Nothing;
-var $elm_explorations$test$Test$Runner$Failure$Comparison = F2(
-	function (a, b) {
-		return {$: 'Comparison', a: a, b: b};
-	});
-var $elm_explorations$test$Expect$compareWith = $elm_explorations$test$Expect$testWith($elm_explorations$test$Test$Runner$Failure$Comparison);
-var $elm$core$Basics$ge = _Utils_ge;
-var $elm_explorations$test$Expect$atLeast = A2($elm_explorations$test$Expect$compareWith, 'Expect.atLeast', $elm$core$Basics$ge);
-var $elm$core$Basics$le = _Utils_le;
-var $elm_explorations$test$Expect$atMost = A2($elm_explorations$test$Expect$compareWith, 'Expect.atMost', $elm$core$Basics$le);
-var $elm_explorations$test$Expect$false = F2(
-	function (message, bool) {
-		return bool ? $elm_explorations$test$Expect$fail(message) : $elm_explorations$test$Expect$pass;
-	});
-var $elm_explorations$test$Expect$greaterThan = A2($elm_explorations$test$Expect$compareWith, 'Expect.greaterThan', $elm$core$Basics$gt);
-var $elm$core$Basics$lt = _Utils_lt;
-var $elm_explorations$test$Expect$lessThan = A2($elm_explorations$test$Expect$compareWith, 'Expect.lessThan', $elm$core$Basics$lt);
-var $elm$core$Basics$neq = _Utils_notEqual;
-var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
-var $elm_explorations$test$Expect$true = F2(
-	function (message, bool) {
-		return bool ? $elm_explorations$test$Expect$pass : $elm_explorations$test$Expect$fail(message);
-	});
-var $author$project$Example$comparisonTests = A2(
-	$elm_explorations$test$Test$describe,
-	'Comparison',
-	_List_fromArray(
-		[
-			A2(
-			$elm_explorations$test$Test$test,
-			'2 is not equal to 3',
-			function (_v0) {
-				return A2($elm_explorations$test$Expect$notEqual, 3, 2);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'4 is less than 5',
-			function (_v1) {
-				return A2($elm_explorations$test$Expect$lessThan, 5, 4);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'6 is less than or equal to 7',
-			function (_v2) {
-				return A2($elm_explorations$test$Expect$atMost, 7, 6);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'9 is greater than 8',
-			function (_v3) {
-				return A2($elm_explorations$test$Expect$greaterThan, 8, 9);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'11 is greater than or equal to 10',
-			function (_v4) {
-				return A2($elm_explorations$test$Expect$atLeast, 10, 11);
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'a list with zero elements is empty',
-			function (_v5) {
-				return A2(
-					$elm_explorations$test$Expect$true,
-					'expected the list to be empty',
-					$elm$core$List$isEmpty(_List_Nil));
-			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'a list with some elements is not empty',
-			function (_v6) {
-				return A2(
-					$elm_explorations$test$Expect$false,
-					'expected the list not to be empty',
-					$elm$core$List$isEmpty(
-						_List_fromArray(
-							['Jyn', 'Cassian', 'K-2SO'])));
-			})
-		]));
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
@@ -3389,45 +3293,6 @@ var $author$project$RippleCarryAdderTests$fullAdderTests = A2(
 					})
 				]))
 		]));
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
-	});
-var $elm$core$List$length = function (xs) {
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (_v0, i) {
-				return i + 1;
-			}),
-		0,
-		xs);
-};
-var $elm$core$String$length = _String_length;
-var $author$project$Example$guardianNames = A2(
-	$elm_explorations$test$Test$test,
-	'only 2 guardians have names with less than 6 characters',
-	function (_v0) {
-		var guardians = _List_fromArray(
-			['Star-lord', 'Groot', 'Gamora', 'Drax', 'Rocket']);
-		return A2(
-			$elm_explorations$test$Expect$equal,
-			2,
-			$elm$core$List$length(
-				A2(
-					$elm$core$List$filter,
-					function (x) {
-						return x < 6;
-					},
-					A2($elm$core$List$map, $elm$core$String$length, guardians))));
-	});
 var $author$project$RippleCarryAdderTests$halfAdderTests = A2(
 	$elm_explorations$test$Test$describe,
 	'HalfAdder tests',
@@ -3506,7 +3371,18 @@ var $elm$json$Json$Decode$indent = function (str) {
 		'\n    ',
 		A2($elm$core$String$split, '\n', str));
 };
+var $elm$core$List$length = function (xs) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (_v0, i) {
+				return i + 1;
+			}),
+		0,
+		xs);
+};
 var $elm$core$List$map2 = _List_map2;
+var $elm$core$Basics$le = _Utils_le;
 var $elm$core$Basics$sub = _Basics_sub;
 var $elm$core$List$rangeHelp = F3(
 	function (lo, hi, list) {
@@ -3760,6 +3636,7 @@ var $elm$core$Array$builderToArray = F2(
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
+var $elm$core$Basics$lt = _Utils_lt;
 var $elm$core$Array$initializeHelp = F5(
 	function (fn, fromIndex, len, nodeList, tail) {
 		initializeHelp:
@@ -3872,7 +3749,1034 @@ var $author$project$RippleCarryAdderTests$orGateTests = A2(
 					A2($author$project$RippleCarryAdder$orGate, 1, 1));
 			})
 		]));
+var $author$project$RippleCarryAdder$digits = function (number) {
+	var getDigits = function (n) {
+		return (!n) ? _List_Nil : A2(
+			$elm$core$List$cons,
+			n % 10,
+			getDigits((n / 10) | 0));
+	};
+	return $elm$core$List$reverse(
+		getDigits(number));
+};
+var $elm_explorations$test$Test$Runner$Failure$InvalidFuzzer = {$: 'InvalidFuzzer'};
+var $elm_explorations$test$Test$Internal$FuzzTest = function (a) {
+	return {__elmTestSymbol: __elmTestSymbol, $: 'FuzzTest', a: a};
+};
+var $elm_explorations$test$Test$Expectation$withGiven = F2(
+	function (newGiven, expectation) {
+		if (expectation.$ === 'Fail') {
+			var failure = expectation.a;
+			return $elm_explorations$test$Test$Expectation$Fail(
+				_Utils_update(
+					failure,
+					{
+						given: $elm$core$Maybe$Just(newGiven)
+					}));
+		} else {
+			return expectation;
+		}
+	});
+var $elm_explorations$test$Test$Fuzz$formatExpectation = function (_v0) {
+	var given = _v0.a;
+	var expectation = _v0.b;
+	return A2($elm_explorations$test$Test$Expectation$withGiven, given, expectation);
+};
+var $elm_explorations$test$RoseTree$Rose = F2(
+	function (a, b) {
+		return {$: 'Rose', a: a, b: b};
+	});
+var $elm_explorations$test$Lazy$force = function (piece) {
+	if (piece.$ === 'Evaluated') {
+		var a = piece.a;
+		return a;
+	} else {
+		var thunk = piece.a;
+		return thunk(_Utils_Tuple0);
+	}
+};
+var $elm_explorations$test$Lazy$List$headAndTail = function (list) {
+	var _v0 = $elm_explorations$test$Lazy$force(list);
+	if (_v0.$ === 'Nil') {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var first = _v0.a;
+		var rest = _v0.b;
+		return $elm$core$Maybe$Just(
+			_Utils_Tuple2(first, rest));
+	}
+};
+var $elm_explorations$test$Test$Fuzz$shrinkAndAdd = F4(
+	function (rootTree, getExpectation, rootsExpectation, failures) {
+		var shrink = F2(
+			function (oldExpectation, _v0) {
+				shrink:
+				while (true) {
+					var failingValue = _v0.a;
+					var branches = _v0.b;
+					var _v1 = $elm_explorations$test$Lazy$List$headAndTail(branches);
+					if (_v1.$ === 'Just') {
+						var _v2 = _v1.a;
+						var rosetree = _v2.a;
+						var possiblyFailingValue = rosetree.a;
+						var moreLazyRoseTrees = _v2.b;
+						var _v3 = getExpectation(possiblyFailingValue);
+						if (_v3.$ === 'Pass') {
+							var $temp$oldExpectation = oldExpectation,
+								$temp$_v0 = A2($elm_explorations$test$RoseTree$Rose, failingValue, moreLazyRoseTrees);
+							oldExpectation = $temp$oldExpectation;
+							_v0 = $temp$_v0;
+							continue shrink;
+						} else {
+							var newExpectation = _v3;
+							var _v4 = A2(shrink, newExpectation, rosetree);
+							var minimalValue = _v4.a;
+							var finalExpectation = _v4.b;
+							return _Utils_Tuple2(minimalValue, finalExpectation);
+						}
+					} else {
+						return _Utils_Tuple2(failingValue, oldExpectation);
+					}
+				}
+			});
+		var _v5 = A2(shrink, rootsExpectation, rootTree);
+		var rootMinimalValue = _v5.a;
+		var rootFinalExpectation = _v5.b;
+		return A3(
+			$elm$core$Dict$insert,
+			$elm_explorations$test$Test$Internal$toString(rootMinimalValue),
+			rootFinalExpectation,
+			failures);
+	});
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm_explorations$test$Test$Fuzz$findNewFailure = F5(
+	function (fuzzer, getExpectation, failures, currentSeed, value) {
+		var _v0 = getExpectation(value);
+		if (_v0.$ === 'Pass') {
+			return failures;
+		} else {
+			var failedExpectation = _v0;
+			var _v1 = A2($elm$random$Random$step, fuzzer, currentSeed);
+			var rosetree = _v1.a;
+			var nextSeed = _v1.b;
+			return A4($elm_explorations$test$Test$Fuzz$shrinkAndAdd, rosetree, getExpectation, failedExpectation, failures);
+		}
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm_explorations$test$RoseTree$root = function (_v0) {
+	var a = _v0.a;
+	return a;
+};
+var $elm_explorations$test$Test$Fuzz$getFailures = F4(
+	function (fuzzer, getExpectation, initialSeed, totalRuns) {
+		var initialFailures = $elm$core$Dict$empty;
+		var genVal = A2($elm$random$Random$map, $elm_explorations$test$RoseTree$root, fuzzer);
+		var helper = F3(
+			function (currentSeed, remainingRuns, failures) {
+				helper:
+				while (true) {
+					var _v0 = A2($elm$random$Random$step, genVal, currentSeed);
+					var value = _v0.a;
+					var nextSeed = _v0.b;
+					var newFailures = A5($elm_explorations$test$Test$Fuzz$findNewFailure, fuzzer, getExpectation, failures, currentSeed, value);
+					if (remainingRuns <= 1) {
+						return newFailures;
+					} else {
+						var $temp$currentSeed = nextSeed,
+							$temp$remainingRuns = remainingRuns - 1,
+							$temp$failures = newFailures;
+						currentSeed = $temp$currentSeed;
+						remainingRuns = $temp$remainingRuns;
+						failures = $temp$failures;
+						continue helper;
+					}
+				}
+			});
+		return A3(helper, initialSeed, totalRuns, initialFailures);
+	});
+var $elm$core$Dict$isEmpty = function (dict) {
+	if (dict.$ === 'RBEmpty_elm_builtin') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var $elm_explorations$test$Test$Fuzz$validatedFuzzTest = F3(
+	function (fuzzer, desc, getExpectation) {
+		var run = F2(
+			function (seed, runs) {
+				var failures = A4($elm_explorations$test$Test$Fuzz$getFailures, fuzzer, getExpectation, seed, runs);
+				return $elm$core$Dict$isEmpty(failures) ? _List_fromArray(
+					[$elm_explorations$test$Test$Expectation$Pass]) : A2(
+					$elm$core$List$map,
+					$elm_explorations$test$Test$Fuzz$formatExpectation,
+					$elm$core$Dict$toList(failures));
+			});
+		return A2(
+			$elm_explorations$test$Test$Internal$Labeled,
+			desc,
+			$elm_explorations$test$Test$Internal$FuzzTest(run));
+	});
+var $elm_explorations$test$Test$Fuzz$fuzzTest = F3(
+	function (fuzzer, untrimmedDesc, getExpectation) {
+		var desc = $elm$core$String$trim(untrimmedDesc);
+		if ($elm$core$String$isEmpty(desc)) {
+			return $elm_explorations$test$Test$Internal$blankDescriptionFailure;
+		} else {
+			if (fuzzer.$ === 'Err') {
+				var reason = fuzzer.a;
+				return $elm_explorations$test$Test$Internal$failNow(
+					{
+						description: reason,
+						reason: $elm_explorations$test$Test$Runner$Failure$Invalid($elm_explorations$test$Test$Runner$Failure$InvalidFuzzer)
+					});
+			} else {
+				var validFuzzer = fuzzer.a;
+				return A3($elm_explorations$test$Test$Fuzz$validatedFuzzTest, validFuzzer, desc, getExpectation);
+			}
+		}
+	});
+var $elm_explorations$test$Test$fuzz = $elm_explorations$test$Test$Fuzz$fuzzTest;
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$random$Random$map3 = F4(
+	function (func, _v0, _v1, _v2) {
+		var genA = _v0.a;
+		var genB = _v1.a;
+		var genC = _v2.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v3 = genA(seed0);
+				var a = _v3.a;
+				var seed1 = _v3.b;
+				var _v4 = genB(seed1);
+				var b = _v4.a;
+				var seed2 = _v4.b;
+				var _v5 = genC(seed2);
+				var c = _v5.a;
+				var seed3 = _v5.b;
+				return _Utils_Tuple2(
+					A3(func, a, b, c),
+					seed3);
+			});
+	});
+var $elm$core$Result$map3 = F4(
+	function (func, ra, rb, rc) {
+		if (ra.$ === 'Err') {
+			var x = ra.a;
+			return $elm$core$Result$Err(x);
+		} else {
+			var a = ra.a;
+			if (rb.$ === 'Err') {
+				var x = rb.a;
+				return $elm$core$Result$Err(x);
+			} else {
+				var b = rb.a;
+				if (rc.$ === 'Err') {
+					var x = rc.a;
+					return $elm$core$Result$Err(x);
+				} else {
+					var c = rc.a;
+					return $elm$core$Result$Ok(
+						A3(func, a, b, c));
+				}
+			}
+		}
+	});
+var $elm_explorations$test$Lazy$List$Cons = F2(
+	function (a, b) {
+		return {$: 'Cons', a: a, b: b};
+	});
+var $elm_explorations$test$Lazy$Lazy = function (a) {
+	return {$: 'Lazy', a: a};
+};
+var $elm_explorations$test$Lazy$lazy = function (thunk) {
+	return $elm_explorations$test$Lazy$Lazy(thunk);
+};
+var $elm_explorations$test$Lazy$List$append = F2(
+	function (list1, list2) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				var _v1 = $elm_explorations$test$Lazy$force(list1);
+				if (_v1.$ === 'Nil') {
+					return $elm_explorations$test$Lazy$force(list2);
+				} else {
+					var first = _v1.a;
+					var rest = _v1.b;
+					return A2(
+						$elm_explorations$test$Lazy$List$Cons,
+						first,
+						A2($elm_explorations$test$Lazy$List$append, rest, list2));
+				}
+			});
+	});
+var $elm_explorations$test$Lazy$List$Nil = {$: 'Nil'};
+var $elm_explorations$test$Lazy$List$map = F2(
+	function (f, list) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				var _v1 = $elm_explorations$test$Lazy$force(list);
+				if (_v1.$ === 'Nil') {
+					return $elm_explorations$test$Lazy$List$Nil;
+				} else {
+					var first = _v1.a;
+					var rest = _v1.b;
+					return A2(
+						$elm_explorations$test$Lazy$List$Cons,
+						f(first),
+						A2($elm_explorations$test$Lazy$List$map, f, rest));
+				}
+			});
+	});
+var $elm_explorations$test$Fuzz$map3RoseTree = F4(
+	function (transform, rose1, rose2, rose3) {
+		var root1 = rose1.a;
+		var children1 = rose1.b;
+		var root2 = rose2.a;
+		var children2 = rose2.b;
+		var root3 = rose3.a;
+		var children3 = rose3.b;
+		var shrink3 = A2(
+			$elm_explorations$test$Lazy$List$map,
+			function (childOf3) {
+				return A4($elm_explorations$test$Fuzz$map3RoseTree, transform, rose1, rose2, childOf3);
+			},
+			children3);
+		var shrink2 = A2(
+			$elm_explorations$test$Lazy$List$map,
+			function (childOf2) {
+				return A4($elm_explorations$test$Fuzz$map3RoseTree, transform, rose1, childOf2, rose3);
+			},
+			children2);
+		var shrink1 = A2(
+			$elm_explorations$test$Lazy$List$map,
+			function (childOf1) {
+				return A4($elm_explorations$test$Fuzz$map3RoseTree, transform, childOf1, rose2, rose3);
+			},
+			children1);
+		var root = A3(transform, root1, root2, root3);
+		return A2(
+			$elm_explorations$test$RoseTree$Rose,
+			root,
+			A2(
+				$elm_explorations$test$Lazy$List$append,
+				shrink1,
+				A2($elm_explorations$test$Lazy$List$append, shrink2, shrink3)));
+	});
+var $elm_explorations$test$Fuzz$map3 = F4(
+	function (transform, fuzzA, fuzzB, fuzzC) {
+		return A4(
+			A2(
+				$elm$core$Basics$composeL,
+				A2($elm$core$Basics$composeL, $elm$core$Result$map3, $elm$random$Random$map3),
+				$elm_explorations$test$Fuzz$map3RoseTree),
+			transform,
+			fuzzA,
+			fuzzB,
+			fuzzC);
+	});
+var $elm_explorations$test$Fuzz$tuple3 = function (_v0) {
+	var fuzzerA = _v0.a;
+	var fuzzerB = _v0.b;
+	var fuzzerC = _v0.c;
+	return A4(
+		$elm_explorations$test$Fuzz$map3,
+		F3(
+			function (a, b, c) {
+				return _Utils_Tuple3(a, b, c);
+			}),
+		fuzzerA,
+		fuzzerB,
+		fuzzerC);
+};
+var $elm_explorations$test$Test$uncurry3 = F2(
+	function (fn, _v0) {
+		var a = _v0.a;
+		var b = _v0.b;
+		var c = _v0.c;
+		return A3(fn, a, b, c);
+	});
+var $elm_explorations$test$Test$fuzz3 = F4(
+	function (fuzzA, fuzzB, fuzzC, desc) {
+		var fuzzer = $elm_explorations$test$Fuzz$tuple3(
+			_Utils_Tuple3(fuzzA, fuzzB, fuzzC));
+		return A2(
+			$elm$core$Basics$composeR,
+			$elm_explorations$test$Test$uncurry3,
+			A2($elm_explorations$test$Test$fuzz, fuzzer, desc));
+	});
+var $elm$random$Random$constant = function (value) {
+	return $elm$random$Random$Generator(
+		function (seed) {
+			return _Utils_Tuple2(value, seed);
+		});
+};
+var $elm_explorations$test$Fuzz$custom = F2(
+	function (generator, shrinker) {
+		var shrinkTree = function (a) {
+			return A2(
+				$elm_explorations$test$RoseTree$Rose,
+				a,
+				$elm_explorations$test$Lazy$lazy(
+					function (_v0) {
+						return $elm_explorations$test$Lazy$force(
+							A2(
+								$elm_explorations$test$Lazy$List$map,
+								shrinkTree,
+								shrinker(a)));
+					}));
+		};
+		return $elm$core$Result$Ok(
+			A2($elm$random$Random$map, shrinkTree, generator));
+	});
+var $elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var $elm$random$Random$andThen = F2(
+	function (callback, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed) {
+				var _v1 = genA(seed);
+				var result = _v1.a;
+				var newSeed = _v1.b;
+				var _v2 = callback(result);
+				var genB = _v2.a;
+				return genB(newSeed);
+			});
+	});
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
 var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$float = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var seed1 = $elm$random$Random$next(seed0);
+				var range = $elm$core$Basics$abs(b - a);
+				var n1 = $elm$random$Random$peel(seed1);
+				var n0 = $elm$random$Random$peel(seed0);
+				var lo = (134217727 & n1) * 1.0;
+				var hi = (67108863 & n0) * 1.0;
+				var val = ((hi * 134217728.0) + lo) / 9007199254740992.0;
+				var scaled = (val * range) + a;
+				return _Utils_Tuple2(
+					scaled,
+					$elm$random$Random$next(seed1));
+			});
+	});
+var $elm$core$List$sum = function (numbers) {
+	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
+};
+var $elm_explorations$test$MicroRandomExtra$frequency = F2(
+	function (firstPair, restPairs) {
+		var total = $elm$core$List$sum(
+			A2(
+				$elm$core$List$map,
+				A2($elm$core$Basics$composeL, $elm$core$Basics$abs, $elm$core$Tuple$first),
+				A2($elm$core$List$cons, firstPair, restPairs)));
+		var pick = F3(
+			function (_v0, restChoices, n) {
+				pick:
+				while (true) {
+					var k = _v0.a;
+					var g = _v0.b;
+					if (_Utils_cmp(n, k) < 1) {
+						return g;
+					} else {
+						if (!restChoices.b) {
+							return g;
+						} else {
+							var next = restChoices.a;
+							var rest = restChoices.b;
+							var $temp$_v0 = next,
+								$temp$restChoices = rest,
+								$temp$n = n - k;
+							_v0 = $temp$_v0;
+							restChoices = $temp$restChoices;
+							n = $temp$n;
+							continue pick;
+						}
+					}
+				}
+			});
+		return A2(
+			$elm$random$Random$andThen,
+			A2(pick, firstPair, restPairs),
+			A2($elm$random$Random$float, 0, total));
+	});
+var $elm$core$Basics$ge = _Utils_ge;
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $elm_explorations$test$Lazy$List$cons = F2(
+	function (a, list) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				return A2($elm_explorations$test$Lazy$List$Cons, a, list);
+			});
+	});
+var $elm_explorations$test$Lazy$List$empty = $elm_explorations$test$Lazy$lazy(
+	function (_v0) {
+		return $elm_explorations$test$Lazy$List$Nil;
+	});
+var $elm_explorations$test$Shrink$seriesInt = F2(
+	function (low, high) {
+		if (_Utils_cmp(low, high) > -1) {
+			return $elm_explorations$test$Lazy$List$empty;
+		} else {
+			if (_Utils_eq(low, high - 1)) {
+				return A2($elm_explorations$test$Lazy$List$cons, low, $elm_explorations$test$Lazy$List$empty);
+			} else {
+				var low_ = low + (((high - low) / 2) | 0);
+				return A2(
+					$elm_explorations$test$Lazy$List$cons,
+					low,
+					A2($elm_explorations$test$Shrink$seriesInt, low_, high));
+			}
+		}
+	});
+var $elm_explorations$test$Shrink$int = function (n) {
+	return (n < 0) ? A2(
+		$elm_explorations$test$Lazy$List$cons,
+		-n,
+		A2(
+			$elm_explorations$test$Lazy$List$map,
+			$elm$core$Basics$mul(-1),
+			A2($elm_explorations$test$Shrink$seriesInt, 0, -n))) : A2($elm_explorations$test$Shrink$seriesInt, 0, n);
+};
+var $elm_explorations$test$Lazy$List$keepIf = F2(
+	function (predicate, list) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				var _v1 = $elm_explorations$test$Lazy$force(list);
+				if (_v1.$ === 'Nil') {
+					return $elm_explorations$test$Lazy$List$Nil;
+				} else {
+					var first = _v1.a;
+					var rest = _v1.b;
+					return predicate(first) ? A2(
+						$elm_explorations$test$Lazy$List$Cons,
+						first,
+						A2($elm_explorations$test$Lazy$List$keepIf, predicate, rest)) : $elm_explorations$test$Lazy$force(
+						A2($elm_explorations$test$Lazy$List$keepIf, predicate, rest));
+				}
+			});
+	});
+var $elm_explorations$test$Shrink$keepIf = F3(
+	function (predicate, shrinker, a) {
+		return A2(
+			$elm_explorations$test$Lazy$List$keepIf,
+			predicate,
+			shrinker(a));
+	});
+var $elm_explorations$test$Fuzz$intRange = F2(
+	function (lo, hi) {
+		return (_Utils_cmp(hi, lo) < 0) ? $elm$core$Result$Err(
+			'Fuzz.intRange was given a lower bound of ' + ($elm$core$String$fromInt(lo) + (' which is greater than the upper bound, ' + ($elm$core$String$fromInt(hi) + '.')))) : A2(
+			$elm_explorations$test$Fuzz$custom,
+			A2(
+				$elm_explorations$test$MicroRandomExtra$frequency,
+				_Utils_Tuple2(
+					8,
+					A2($elm$random$Random$int, lo, hi)),
+				_List_fromArray(
+					[
+						_Utils_Tuple2(
+						1,
+						$elm$random$Random$constant(lo)),
+						_Utils_Tuple2(
+						1,
+						$elm$random$Random$constant(hi))
+					])),
+			A2(
+				$elm_explorations$test$Shrink$keepIf,
+				function (i) {
+					return (_Utils_cmp(i, lo) > -1) && (_Utils_cmp(i, hi) < 1);
+				},
+				$elm_explorations$test$Shrink$int));
+	});
+var $elm_explorations$test$Test$Runner$Failure$Comparison = F2(
+	function (a, b) {
+		return {$: 'Comparison', a: a, b: b};
+	});
+var $elm_explorations$test$Expect$compareWith = $elm_explorations$test$Expect$testWith($elm_explorations$test$Test$Runner$Failure$Comparison);
+var $elm_explorations$test$Expect$lessThan = A2($elm_explorations$test$Expect$compareWith, 'Expect.lessThan', $elm$core$Basics$lt);
+var $elm$random$Random$listHelp = F4(
+	function (revList, n, gen, seed) {
+		listHelp:
+		while (true) {
+			if (n < 1) {
+				return _Utils_Tuple2(revList, seed);
+			} else {
+				var _v0 = gen(seed);
+				var value = _v0.a;
+				var newSeed = _v0.b;
+				var $temp$revList = A2($elm$core$List$cons, value, revList),
+					$temp$n = n - 1,
+					$temp$gen = gen,
+					$temp$seed = newSeed;
+				revList = $temp$revList;
+				n = $temp$n;
+				gen = $temp$gen;
+				seed = $temp$seed;
+				continue listHelp;
+			}
+		}
+	});
+var $elm$random$Random$list = F2(
+	function (n, _v0) {
+		var gen = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed) {
+				return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
+			});
+	});
+var $elm_explorations$test$Lazy$List$flatten = function (list) {
+	return $elm_explorations$test$Lazy$lazy(
+		function (_v0) {
+			var _v1 = $elm_explorations$test$Lazy$force(list);
+			if (_v1.$ === 'Nil') {
+				return $elm_explorations$test$Lazy$List$Nil;
+			} else {
+				var first = _v1.a;
+				var rest = _v1.b;
+				return $elm_explorations$test$Lazy$force(
+					A2(
+						$elm_explorations$test$Lazy$List$append,
+						first,
+						$elm_explorations$test$Lazy$List$flatten(rest)));
+			}
+		});
+};
+var $elm_explorations$test$Lazy$List$andThen = F2(
+	function (f, list) {
+		return $elm_explorations$test$Lazy$List$flatten(
+			A2($elm_explorations$test$Lazy$List$map, f, list));
+	});
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var $elm_explorations$test$Lazy$List$fromList = A2($elm$core$List$foldr, $elm_explorations$test$Lazy$List$cons, $elm_explorations$test$Lazy$List$empty);
+var $elm_explorations$test$Lazy$List$iterate = F2(
+	function (f, a) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				return A2(
+					$elm_explorations$test$Lazy$List$Cons,
+					a,
+					A2(
+						$elm_explorations$test$Lazy$List$iterate,
+						f,
+						f(a)));
+			});
+	});
+var $elm_explorations$test$Lazy$List$numbers = A2(
+	$elm_explorations$test$Lazy$List$iterate,
+	$elm$core$Basics$add(1),
+	1);
+var $elm_explorations$test$Lazy$List$take = F2(
+	function (n, list) {
+		return $elm_explorations$test$Lazy$lazy(
+			function (_v0) {
+				if (n <= 0) {
+					return $elm_explorations$test$Lazy$List$Nil;
+				} else {
+					var _v1 = $elm_explorations$test$Lazy$force(list);
+					if (_v1.$ === 'Nil') {
+						return $elm_explorations$test$Lazy$List$Nil;
+					} else {
+						var first = _v1.a;
+						var rest = _v1.b;
+						return A2(
+							$elm_explorations$test$Lazy$List$Cons,
+							first,
+							A2($elm_explorations$test$Lazy$List$take, n - 1, rest));
+					}
+				}
+			});
+	});
+var $elm$core$List$takeReverse = F3(
+	function (n, list, kept) {
+		takeReverse:
+		while (true) {
+			if (n <= 0) {
+				return kept;
+			} else {
+				if (!list.b) {
+					return kept;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs,
+						$temp$kept = A2($elm$core$List$cons, x, kept);
+					n = $temp$n;
+					list = $temp$list;
+					kept = $temp$kept;
+					continue takeReverse;
+				}
+			}
+		}
+	});
+var $elm$core$List$takeTailRec = F2(
+	function (n, list) {
+		return $elm$core$List$reverse(
+			A3($elm$core$List$takeReverse, n, list, _List_Nil));
+	});
+var $elm$core$List$takeFast = F3(
+	function (ctr, n, list) {
+		if (n <= 0) {
+			return _List_Nil;
+		} else {
+			var _v0 = _Utils_Tuple2(n, list);
+			_v0$1:
+			while (true) {
+				_v0$5:
+				while (true) {
+					if (!_v0.b.b) {
+						return list;
+					} else {
+						if (_v0.b.b.b) {
+							switch (_v0.a) {
+								case 1:
+									break _v0$1;
+								case 2:
+									var _v2 = _v0.b;
+									var x = _v2.a;
+									var _v3 = _v2.b;
+									var y = _v3.a;
+									return _List_fromArray(
+										[x, y]);
+								case 3:
+									if (_v0.b.b.b.b) {
+										var _v4 = _v0.b;
+										var x = _v4.a;
+										var _v5 = _v4.b;
+										var y = _v5.a;
+										var _v6 = _v5.b;
+										var z = _v6.a;
+										return _List_fromArray(
+											[x, y, z]);
+									} else {
+										break _v0$5;
+									}
+								default:
+									if (_v0.b.b.b.b && _v0.b.b.b.b.b) {
+										var _v7 = _v0.b;
+										var x = _v7.a;
+										var _v8 = _v7.b;
+										var y = _v8.a;
+										var _v9 = _v8.b;
+										var z = _v9.a;
+										var _v10 = _v9.b;
+										var w = _v10.a;
+										var tl = _v10.b;
+										return (ctr > 1000) ? A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A2($elm$core$List$takeTailRec, n - 4, tl))))) : A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A3($elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
+									} else {
+										break _v0$5;
+									}
+							}
+						} else {
+							if (_v0.a === 1) {
+								break _v0$1;
+							} else {
+								break _v0$5;
+							}
+						}
+					}
+				}
+				return list;
+			}
+			var _v1 = _v0.b;
+			var x = _v1.a;
+			return _List_fromArray(
+				[x]);
+		}
+	});
+var $elm$core$List$take = F2(
+	function (n, list) {
+		return A3($elm$core$List$takeFast, 0, n, list);
+	});
+var $elm_explorations$test$Fuzz$listShrinkRecurse = function (listOfTrees) {
+	var shrinkOne = F2(
+		function (prefix, aList) {
+			if (!aList.b) {
+				return $elm_explorations$test$Lazy$List$empty;
+			} else {
+				var _v4 = aList.a;
+				var x = _v4.a;
+				var shrunkenXs = _v4.b;
+				var more = aList.b;
+				return A2(
+					$elm_explorations$test$Lazy$List$map,
+					function (childTree) {
+						return $elm_explorations$test$Fuzz$listShrinkRecurse(
+							_Utils_ap(
+								prefix,
+								A2($elm$core$List$cons, childTree, more)));
+					},
+					shrunkenXs);
+			}
+		});
+	var root = A2($elm$core$List$map, $elm_explorations$test$RoseTree$root, listOfTrees);
+	var removeOne = F2(
+		function (index, aList) {
+			return A2(
+				$elm$core$List$append,
+				A2($elm$core$List$take, index, aList),
+				A2($elm$core$List$drop, index + 1, aList));
+		});
+	var n = $elm$core$List$length(listOfTrees);
+	var shortened = $elm_explorations$test$Lazy$lazy(
+		function (_v2) {
+			return $elm_explorations$test$Lazy$force(
+				A2(
+					$elm_explorations$test$Lazy$List$map,
+					$elm_explorations$test$Fuzz$listShrinkRecurse,
+					A2(
+						$elm_explorations$test$Lazy$List$map,
+						function (index) {
+							return A2(removeOne, index, listOfTrees);
+						},
+						$elm_explorations$test$Lazy$List$fromList(
+							A2($elm$core$List$range, 0, n - 1)))));
+		});
+	var shrunkenVals = $elm_explorations$test$Lazy$lazy(
+		function (_v1) {
+			return $elm_explorations$test$Lazy$force(
+				A2(
+					$elm_explorations$test$Lazy$List$andThen,
+					function (i) {
+						return A2(
+							shrinkOne,
+							A2($elm$core$List$take, i, listOfTrees),
+							A2($elm$core$List$drop, i, listOfTrees));
+					},
+					A2(
+						$elm_explorations$test$Lazy$List$take,
+						n,
+						A2(
+							$elm_explorations$test$Lazy$List$map,
+							function (i) {
+								return i - 1;
+							},
+							$elm_explorations$test$Lazy$List$numbers))));
+		});
+	var dropSecondHalf = function (list_) {
+		return $elm_explorations$test$Fuzz$listShrinkRecurse(
+			A2(
+				$elm$core$List$take,
+				($elm$core$List$length(list_) / 2) | 0,
+				list_));
+	};
+	var dropFirstHalf = function (list_) {
+		return $elm_explorations$test$Fuzz$listShrinkRecurse(
+			A2(
+				$elm$core$List$drop,
+				($elm$core$List$length(list_) / 2) | 0,
+				list_));
+	};
+	var halved = (n >= 8) ? $elm_explorations$test$Lazy$lazy(
+		function (_v0) {
+			return $elm_explorations$test$Lazy$force(
+				$elm_explorations$test$Lazy$List$fromList(
+					_List_fromArray(
+						[
+							dropFirstHalf(listOfTrees),
+							dropSecondHalf(listOfTrees)
+						])));
+		}) : $elm_explorations$test$Lazy$List$empty;
+	return A2(
+		$elm_explorations$test$RoseTree$Rose,
+		root,
+		A2(
+			$elm_explorations$test$Lazy$List$append,
+			halved,
+			A2($elm_explorations$test$Lazy$List$append, shortened, shrunkenVals)));
+};
+var $elm_explorations$test$Fuzz$mapChildren = F2(
+	function (fn, _v0) {
+		var root = _v0.a;
+		var children = _v0.b;
+		return A2(
+			$elm_explorations$test$RoseTree$Rose,
+			root,
+			fn(children));
+	});
+var $elm_explorations$test$RoseTree$singleton = function (a) {
+	return A2($elm_explorations$test$RoseTree$Rose, a, $elm_explorations$test$Lazy$List$empty);
+};
+var $elm_explorations$test$Fuzz$listShrinkHelp = function (listOfTrees) {
+	return A2(
+		$elm_explorations$test$Fuzz$mapChildren,
+		$elm_explorations$test$Lazy$List$cons(
+			$elm_explorations$test$RoseTree$singleton(_List_Nil)),
+		$elm_explorations$test$Fuzz$listShrinkRecurse(listOfTrees));
+};
+var $elm$core$Result$map = F2(
+	function (func, ra) {
+		if (ra.$ === 'Ok') {
+			var a = ra.a;
+			return $elm$core$Result$Ok(
+				func(a));
+		} else {
+			var e = ra.a;
+			return $elm$core$Result$Err(e);
+		}
+	});
+var $elm_explorations$test$Fuzz$list = function (fuzzer) {
+	var genLength = A2(
+		$elm_explorations$test$MicroRandomExtra$frequency,
+		_Utils_Tuple2(
+			1,
+			$elm$random$Random$constant(0)),
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				1,
+				$elm$random$Random$constant(1)),
+				_Utils_Tuple2(
+				3,
+				A2($elm$random$Random$int, 2, 10)),
+				_Utils_Tuple2(
+				2,
+				A2($elm$random$Random$int, 10, 100)),
+				_Utils_Tuple2(
+				0.5,
+				A2($elm$random$Random$int, 100, 400))
+			]));
+	return A2(
+		$elm$core$Result$map,
+		function (validFuzzer) {
+			return A2(
+				$elm$random$Random$map,
+				$elm_explorations$test$Fuzz$listShrinkHelp,
+				A2(
+					$elm$random$Random$andThen,
+					function (a) {
+						return A2($elm$random$Random$list, a, validFuzzer);
+					},
+					genLength));
+		},
+		fuzzer);
+};
+var $author$project$RippleCarryAdder$numberFromDigits = function (digitsList) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (digit, number) {
+				return digit + (10 * number);
+			}),
+		0,
+		digitsList);
+};
 var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
 var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
 var $elm$core$Array$getHelp = F3(
@@ -3939,16 +4843,6 @@ var $author$project$RippleCarryAdder$arrayToRecord = function (array) {
 		-1,
 		A2($elm$core$Array$get, 0, array));
 	return {d0: firstElement, d1: secondElement, d2: thirdElement, d3: fourthElement};
-};
-var $author$project$RippleCarryAdder$digits = function (number) {
-	var getDigits = function (n) {
-		return (!n) ? _List_Nil : A2(
-			$elm$core$List$cons,
-			n % 10,
-			getDigits((n / 10) | 0));
-	};
-	return $elm$core$List$reverse(
-		getDigits(number));
 };
 var $elm$core$Array$fromListHelp = F3(
 	function (list, nodeList, nodeListSize) {
@@ -4021,16 +4915,6 @@ var $author$project$RippleCarryAdder$extractDigits = function (number) {
 				4,
 				$author$project$RippleCarryAdder$digits(number))));
 };
-var $author$project$RippleCarryAdder$numberFromDigits = function (digitsList) {
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (digit, number) {
-				return digit + (10 * number);
-			}),
-		0,
-		digitsList);
-};
 var $author$project$RippleCarryAdder$rippleCarryAdder = F3(
 	function (a, b, carryIn) {
 		var secondSignal = $author$project$RippleCarryAdder$extractDigits(b);
@@ -4051,6 +4935,35 @@ var $author$project$RippleCarryAdder$rippleCarryAdder = F3(
 					_List_fromArray(
 						[finalResult, thirdResult, secondResult, firstResult]))));
 	});
+var $author$project$RippleCarryAdderTests$rippleCarryAdderProperty1 = A2(
+	$elm_explorations$test$Test$describe,
+	'carry-out\'s relationship with most significant digits',
+	_List_fromArray(
+		[
+			A5(
+			$elm_explorations$test$Test$fuzz3,
+			$elm_explorations$test$Fuzz$list(
+				A2($elm_explorations$test$Fuzz$intRange, 0, 1)),
+			$elm_explorations$test$Fuzz$list(
+				A2($elm_explorations$test$Fuzz$intRange, 0, 1)),
+			A2($elm_explorations$test$Fuzz$intRange, 0, 1),
+			'carry-out is 0 when most significant digits are both 0',
+			F3(
+				function (list1, list2, carryIn) {
+					var convertToBinary = function (digitsList) {
+						return $author$project$RippleCarryAdder$numberFromDigits(
+							A2($elm$core$List$take, 3, digitsList));
+					};
+					var firstInput = convertToBinary(list1);
+					var secondInput = convertToBinary(list2);
+					return A2(
+						$elm_explorations$test$Expect$lessThan,
+						5,
+						$elm$core$List$length(
+							$author$project$RippleCarryAdder$digits(
+								A3($author$project$RippleCarryAdder$rippleCarryAdder, firstInput, secondInput, carryIn))));
+				}))
+		]));
 var $author$project$RippleCarryAdderTests$rippleCarryAdderTests = A2(
 	$elm_explorations$test$Test$describe,
 	'4-bit ripple carry adder',
@@ -4494,11 +5407,6 @@ var $author$project$Console$Text$Texts = function (a) {
 	return {$: 'Texts', a: a};
 };
 var $author$project$Console$Text$concat = $author$project$Console$Text$Texts;
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
 var $author$project$Console$Text$Dark = {$: 'Dark'};
 var $author$project$Console$Text$dark = function (txt) {
 	if (txt.$ === 'Text') {
@@ -4518,6 +5426,17 @@ var $author$project$Console$Text$dark = function (txt) {
 			A2($elm$core$List$map, $author$project$Console$Text$dark, texts));
 	}
 };
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
 var $elm_explorations$test$Test$Runner$formatLabels = F3(
 	function (formatDescription, formatTest, labels) {
 		var _v0 = A2(
@@ -4970,27 +5889,6 @@ var $author$project$Test$Reporter$Highlightable$diffLists = F2(
 			$author$project$Test$Reporter$Highlightable$fromDiff,
 			A2($author$project$Test$Runner$Node$Vendor$Diff$diff, expected, actual));
 	});
-var $elm$core$List$drop = F2(
-	function (n, list) {
-		drop:
-		while (true) {
-			if (n <= 0) {
-				return list;
-			} else {
-				if (!list.b) {
-					return list;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs;
-					n = $temp$n;
-					list = $temp$list;
-					continue drop;
-				}
-			}
-		}
-	});
 var $author$project$Test$Reporter$Console$Format$isFloat = function (str) {
 	var _v0 = $elm$core$String$toFloat(str);
 	if (_v0.$ === 'Just') {
@@ -5011,6 +5909,7 @@ var $author$project$Test$Reporter$Highlightable$map = F2(
 				transform(val));
 		}
 	});
+var $elm$core$Basics$neq = _Utils_notEqual;
 var $elm$core$Tuple$pair = F2(
 	function (a, b) {
 		return _Utils_Tuple2(a, b);
@@ -6101,7 +7000,6 @@ var $elm_explorations$test$Test$Runner$Thunk = function (a) {
 var $elm_explorations$test$Test$Runner$emptyDistribution = function (seed) {
 	return {all: _List_Nil, only: _List_Nil, seed: seed, skipped: _List_Nil};
 };
-var $elm$core$Bitwise$xor = _Bitwise_xor;
 var $elm_explorations$test$Test$Runner$fnvHash = F2(
 	function (a, b) {
 		return ((a ^ b) * 16777619) >>> 0;
@@ -6118,81 +7016,6 @@ var $elm_explorations$test$Test$Runner$fnvHashString = F2(
 				$elm$core$String$toList(str)));
 	});
 var $elm_explorations$test$Test$Runner$fnvInit = 2166136261;
-var $elm$random$Random$Generator = function (a) {
-	return {$: 'Generator', a: a};
-};
-var $elm$random$Random$Seed = F2(
-	function (a, b) {
-		return {$: 'Seed', a: a, b: b};
-	});
-var $elm$random$Random$next = function (_v0) {
-	var state0 = _v0.a;
-	var incr = _v0.b;
-	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
-};
-var $elm$random$Random$peel = function (_v0) {
-	var state = _v0.a;
-	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
-	return ((word >>> 22) ^ word) >>> 0;
-};
-var $elm$random$Random$int = F2(
-	function (a, b) {
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
-				var lo = _v0.a;
-				var hi = _v0.b;
-				var range = (hi - lo) + 1;
-				if (!((range - 1) & range)) {
-					return _Utils_Tuple2(
-						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
-						$elm$random$Random$next(seed0));
-				} else {
-					var threshhold = (((-range) >>> 0) % range) >>> 0;
-					var accountForBias = function (seed) {
-						accountForBias:
-						while (true) {
-							var x = $elm$random$Random$peel(seed);
-							var seedN = $elm$random$Random$next(seed);
-							if (_Utils_cmp(x, threshhold) < 0) {
-								var $temp$seed = seedN;
-								seed = $temp$seed;
-								continue accountForBias;
-							} else {
-								return _Utils_Tuple2((x % range) + lo, seedN);
-							}
-						}
-					};
-					return accountForBias(seed0);
-				}
-			});
-	});
-var $elm$random$Random$map3 = F4(
-	function (func, _v0, _v1, _v2) {
-		var genA = _v0.a;
-		var genB = _v1.a;
-		var genC = _v2.a;
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v3 = genA(seed0);
-				var a = _v3.a;
-				var seed1 = _v3.b;
-				var _v4 = genB(seed1);
-				var b = _v4.a;
-				var seed2 = _v4.b;
-				var _v5 = genC(seed2);
-				var c = _v5.a;
-				var seed3 = _v5.b;
-				return _Utils_Tuple2(
-					A3(func, a, b, c),
-					seed3);
-			});
-	});
-var $elm$random$Random$step = F2(
-	function (_v0, seed) {
-		var generator = _v0.a;
-		return generator(seed);
-	});
 var $elm$random$Random$independentSeed = $elm$random$Random$Generator(
 	function (seed0) {
 		var makeIndependentSeed = F3(
@@ -7015,34 +7838,20 @@ var $author$project$Test$Runner$Node$run = F2(
 				});
 		}
 	});
-var $author$project$Example$suite = A2(
-	$elm_explorations$test$Test$test,
-	'two plus two equals four',
-	function (_v0) {
-		return A2($elm_explorations$test$Expect$equal, 4, 2 + 2);
-	});
 var $author$project$Test$Generated$Main$main = A2(
 	$author$project$Test$Runner$Node$run,
 	{
-		globs: _List_Nil,
+		globs: _List_fromArray(
+			['tests/RippleCarryAdderTests.elm']),
 		paths: _List_fromArray(
-			['/home/prh/dev/beginning-elm/tests/Example.elm', '/home/prh/dev/beginning-elm/tests/RippleCarryAdderTests.elm']),
+			['/home/prh/dev/beginning-elm/tests/RippleCarryAdderTests.elm']),
 		processes: 4,
 		report: $author$project$Test$Reporter$Reporter$ConsoleReport($author$project$Console$Text$UseColor),
 		runs: 100,
-		seed: 216194462668461
+		seed: 154699423403643
 	},
 	_List_fromArray(
 		[
-			_Utils_Tuple2(
-			'Example',
-			_List_fromArray(
-				[
-					$author$project$Test$Runner$Node$check($author$project$Example$suite),
-					$author$project$Test$Runner$Node$check($author$project$Example$guardianNames),
-					$author$project$Test$Runner$Node$check($author$project$Example$additionTests),
-					$author$project$Test$Runner$Node$check($author$project$Example$comparisonTests)
-				])),
 			_Utils_Tuple2(
 			'RippleCarryAdderTests',
 			_List_fromArray(
@@ -7052,13 +7861,14 @@ var $author$project$Test$Generated$Main$main = A2(
 					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$orGateTests),
 					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$halfAdderTests),
 					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$fullAdderTests),
-					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$rippleCarryAdderTests)
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$rippleCarryAdderTests),
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$rippleCarryAdderProperty1)
 				]))
 		]));
 _Platform_export({'Test':{'Generated':{'Main':{'init':$author$project$Test$Generated$Main$main($elm$json$Json$Decode$int)(0)}}}});}(this));
 return this.Elm;
 })({});
-var pipeFilename = "/tmp/elm_test-107875.sock";
+var pipeFilename = "/tmp/elm_test-125465.sock";
 var net = require('net'),
   client = net.createConnection(pipeFilename);
 

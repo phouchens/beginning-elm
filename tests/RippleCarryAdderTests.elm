@@ -1,7 +1,7 @@
 module RippleCarryAdderTests exposing (..)
 
 import Expect exposing (Expectation)
-import Fuzz exposing (Fuzzer, int, list, string)
+import Fuzz exposing (..)
 import RippleCarryAdder exposing (..)
 import Test exposing (..)
 
@@ -129,4 +129,33 @@ rippleCarryAdderTests =
                     rippleCarryAdder 0 0 1
                         |> Expect.equal 1
             ]
+        ]
+
+
+rippleCarryAdderProperty1 : Test
+rippleCarryAdderProperty1 =
+    describe "carry-out's relationship with most significant digits"
+        [ fuzz3
+            (list (intRange 0 1))
+            (list (intRange 0 1))
+            (intRange 0 1)
+            "carry-out is 0 when most significant digits are both 0"
+          <|
+            \list1 list2 carryIn ->
+                let
+                    convertToBinary digitsList =
+                        digitsList
+                            |> List.take 3
+                            |> numberFromDigits
+
+                    firstInput =
+                        convertToBinary list1
+
+                    secondInput =
+                        convertToBinary list2
+                in
+                rippleCarryAdder firstInput secondInput carryIn
+                    |> digits
+                    |> List.length
+                    |> Expect.lessThan 5
         ]

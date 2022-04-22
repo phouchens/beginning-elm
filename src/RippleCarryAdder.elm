@@ -1,4 +1,4 @@
-module RippleCarryAdder exposing (Binary, andGate, digits, fullAdder, halfAdder, inverter, orGate, rippleCarryAdder, stringToInt)
+module RippleCarryAdder exposing (..)
 
 import Array
 import Bitwise

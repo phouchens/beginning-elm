@@ -1,6 +1,5 @@
 module Test.Generated.Main exposing (main)
 
-import Example
 import RippleCarryAdderTests
 
 import Test.Reporter.Reporter exposing (Report(..))
@@ -13,29 +12,23 @@ main =
     Test.Runner.Node.run
         { runs = 100
         , report = ConsoleReport UseColor
-        , seed = 216194462668461
+        , seed = 154699423403643
         , processes = 4
         , globs =
-            []
+            [ "tests/RippleCarryAdderTests.elm"
+            ]
         , paths =
-            [ "/home/prh/dev/beginning-elm/tests/Example.elm"
-            , "/home/prh/dev/beginning-elm/tests/RippleCarryAdderTests.elm"
+            [ "/home/prh/dev/beginning-elm/tests/RippleCarryAdderTests.elm"
             ]
         }
-        [ ( "Example"
-          , [ Test.Runner.Node.check Example.suite
-            , Test.Runner.Node.check Example.guardianNames
-            , Test.Runner.Node.check Example.additionTests
-            , Test.Runner.Node.check Example.comparisonTests
-            ]
-          )
-        , ( "RippleCarryAdderTests"
+        [ ( "RippleCarryAdderTests"
           , [ Test.Runner.Node.check RippleCarryAdderTests.inverterTests
             , Test.Runner.Node.check RippleCarryAdderTests.andGateTests
             , Test.Runner.Node.check RippleCarryAdderTests.orGateTests
             , Test.Runner.Node.check RippleCarryAdderTests.halfAdderTests
             , Test.Runner.Node.check RippleCarryAdderTests.fullAdderTests
             , Test.Runner.Node.check RippleCarryAdderTests.rippleCarryAdderTests
+            , Test.Runner.Node.check RippleCarryAdderTests.rippleCarryAdderProperty1
             ]
           )
         ]
