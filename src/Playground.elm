@@ -241,6 +241,110 @@ signUp email ageStr =
                 Err "You entered an invalid email."
 
 
+type alias Character =
+    { name : String
+    , age : Maybe Int
+    }
+
+
+sansa : Character
+sansa =
+    { name = "Sansa"
+    , age = Just 19
+    }
+
+
+arya : Character
+arya =
+    { name = "Arya"
+    , age = Nothing
+    }
+
+
+jonSnow : Character
+jonSnow =
+    { name = "John Snow"
+    , age = Just 21
+    }
+
+
+rickon : Character
+rickon =
+    Character "Rickon" <| Just 11
+
+
+robb : Character
+robb =
+    Character "Rob" <| Just 18
+
+
+getAdultAge : Character -> Maybe Int
+getAdultAge character =
+    case character.age of
+        Nothing ->
+            Nothing
+
+        Just age ->
+            if age >= 18 then
+                Just age
+
+            else
+                Nothing
+
+
+getChildAge : Character -> Maybe Int
+getChildAge character =
+    case character.age of
+        Nothing ->
+            Just 0
+
+        Just age ->
+            if age < 18 then
+                Just age
+
+            else
+                Nothing
+
+
+type MyList a
+    = Empty
+    | Node a (MyList a)
+
+
+sum : MyList Int -> Int
+sum myList =
+    case myList of
+        Empty ->
+            0
+
+        Node initValue remainingNodes ->
+            initValue + sum remainingNodes
+
+
+type Tree a
+    = Vacant
+    | TreeNode a (Tree a) (Tree a)
+
+
+exampleTree : Tree Char
+exampleTree =
+    TreeNode '1'
+        (TreeNode '2'
+            (TreeNode '4'
+                Vacant
+                (TreeNode '8' Vacant Vacant)
+            )
+            (TreeNode '5' Vacant Vacant)
+        )
+        (TreeNode '3'
+            (TreeNode '6' Vacant Vacant)
+            (TreeNode '7'
+                (TreeNode '9' Vacant Vacant)
+                Vacant
+            )
+        )
+
+
 main =
     multiplyByFive 3
         |> String.fromInt
