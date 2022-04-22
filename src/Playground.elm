@@ -1,6 +1,7 @@
 module Playground exposing (..)
 
-import Html
+import Html exposing (Html, text)
+import MyList exposing (..)
 import Regex
 
 
@@ -306,21 +307,6 @@ getChildAge character =
                 Nothing
 
 
-type MyList a
-    = Empty
-    | Node a (MyList a)
-
-
-sum : MyList Int -> Int
-sum myList =
-    case myList of
-        Empty ->
-            0
-
-        Node initValue remainingNodes ->
-            initValue + sum remainingNodes
-
-
 type Tree a
     = Vacant
     | TreeNode a (Tree a) (Tree a)
@@ -345,7 +331,23 @@ exampleTree =
         )
 
 
+list1 : MyList a
+list1 =
+    Empty
+
+
+list2 : MyList number
+list2 =
+    Node 9 Empty
+
+
+list3 : List a
+list3 =
+    []
+
+
+main : Html msg
 main =
-    multiplyByFive 3
-        |> String.fromInt
-        |> Html.text
+    List.isEmpty list3
+        |> Debug.toString
+        |> text
