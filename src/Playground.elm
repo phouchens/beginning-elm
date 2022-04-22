@@ -1,17 +1,25 @@
-module Playground exposing (main)
+module Playground exposing (..)
 
 import Html
 import Regex
 
 
+add : Int -> Int -> Int
+add num1 num2 =
+    num1 + num2
+
+
+computeSpeed : Float -> Float -> Float
 computeSpeed distance time =
     distance / time
 
 
+computeTime : Float -> Float -> Float
 computeTime startTime endTime =
     endTime - startTime
 
 
+escapeEarth : Float -> Float -> String -> String
 escapeEarth myVelocity mySpeed fuelStatus =
     let
         escapeVelocityInKmPerSec =
@@ -37,18 +45,17 @@ escapeEarth myVelocity mySpeed fuelStatus =
         whereToLand
 
 
-add a b =
-    a + b
-
-
+multiply : number -> number -> number
 multiply c d =
     c * d
 
 
+divide : Float -> Float -> Float
 divide e f =
     e / f
 
 
+weekday : Int -> String
 weekday dayInNumber =
     case dayInNumber of
         0 ->
@@ -76,6 +83,7 @@ weekday dayInNumber =
             "Unknown day"
 
 
+hashtag : Int -> String
 hashtag dayInNumber =
     case weekday dayInNumber of
         "Sunday" ->
@@ -103,6 +111,7 @@ hashtag dayInNumber =
             "#Whatevs"
 
 
+descending : String -> String -> Order
 descending a b =
     case compare a b of
         LT ->
@@ -115,6 +124,7 @@ descending a b =
             EQ
 
 
+evilometer : String -> String -> Order
 evilometer character1 character2 =
     case ( character1, character2 ) of
         ( "Joffrey", "Ramsay" ) ->
@@ -139,6 +149,7 @@ evilometer character1 character2 =
             GT
 
 
+validateEmail : String -> ( String, String )
 validateEmail email =
     let
         emailPattern =
@@ -152,12 +163,13 @@ validateEmail email =
             Regex.contains regex email
     in
     if isValid then
-        ( "Valid emal", "green" )
+        ( "Valid email", "green" )
 
     else
         ( "Invalid email", "red" )
 
 
+multiplyByFive : Int -> Int
 multiplyByFive number =
     let
         multiplier =
@@ -166,25 +178,70 @@ multiplyByFive number =
     number * multiplier
 
 
+scoreMultiplyer =
+    2
+
+
+highestScores =
+    [ 316, 320, 312, 370, 337, 318, 314 ]
+
+
+doubleScores : List Int -> List Int
+doubleScores scores =
+    List.map (\x -> x * scoreMultiplyer) scores
+
+
+type Greeting
+    = Howdy
+    | Hola
+    | Namaste String
+    | NumericalHi Int Int
+
+
+sayHello : Greeting -> String
+sayHello greeting =
+    case greeting of
+        Howdy ->
+            "How y'all doing?"
+
+        Hola ->
+            "Hola amigo"
+
+        Namaste message ->
+            message
+
+        NumericalHi val1 val2 ->
+            val1 + val2 |> String.fromInt
+
+
+signUp : String -> String -> Result String String
+signUp email ageStr =
+    case String.toInt ageStr of
+        Nothing ->
+            Err "Age Must be Int"
+
+        Just age ->
+            let
+                emailPattern =
+                    "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"
+
+                regex =
+                    Maybe.withDefault Regex.never <| Regex.fromString emailPattern
+
+                isValidEmail =
+                    Regex.contains regex email
+            in
+            if age < 13 then
+                Err "You need to be at least 13 years old to sign up."
+
+            else if isValidEmail then
+                Ok "Your account has been created successfully!"
+
+            else
+                Err "You entered an invalid email."
+
+
 main =
     multiplyByFive 3
         |> String.fromInt
         |> Html.text
-
-
-
---main =
---    Html.text (String.fromFloat (add 5 (multiply 10 (divide 30 10))))
---main =
---    divide 30 10
---        |> multiply 10
---        |> add 5
---        |> String.fromFloat
---        |> Html.text
---main =
---    Html.text <| String.fromFloat <| add 5 <| multiply 10 <| divide 30 10
---main =
---    computeTime 2 3
---        |> computeSpeed 7.67
---        |> escapeEarth 11
---        |> Html.text

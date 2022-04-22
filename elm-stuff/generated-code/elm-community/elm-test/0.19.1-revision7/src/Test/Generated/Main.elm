@@ -13,7 +13,7 @@ main =
     Test.Runner.Node.run
         { runs = 100
         , report = ConsoleReport UseColor
-        , seed = 204788239490077
+        , seed = 216194462668461
         , processes = 4
         , globs =
             []
@@ -33,6 +33,9 @@ main =
           , [ Test.Runner.Node.check RippleCarryAdderTests.inverterTests
             , Test.Runner.Node.check RippleCarryAdderTests.andGateTests
             , Test.Runner.Node.check RippleCarryAdderTests.orGateTests
+            , Test.Runner.Node.check RippleCarryAdderTests.halfAdderTests
+            , Test.Runner.Node.check RippleCarryAdderTests.fullAdderTests
+            , Test.Runner.Node.check RippleCarryAdderTests.rippleCarryAdderTests
             ]
           )
         ]

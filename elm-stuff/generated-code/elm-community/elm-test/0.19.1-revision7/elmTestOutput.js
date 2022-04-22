@@ -3253,6 +3253,142 @@ var $author$project$Example$comparisonTests = A2(
 							['Jyn', 'Cassian', 'K-2SO'])));
 			})
 		]));
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $author$project$RippleCarryAdder$inverter = function (a) {
+	switch (a) {
+		case 0:
+			return 1;
+		case 1:
+			return 0;
+		default:
+			return -1;
+	}
+};
+var $elm$core$Bitwise$or = _Bitwise_or;
+var $author$project$RippleCarryAdder$orGate = F2(
+	function (a, b) {
+		return a | b;
+	});
+var $author$project$RippleCarryAdder$halfAdder = F2(
+	function (a, b) {
+		var e = $author$project$RippleCarryAdder$inverter(
+			A2($author$project$RippleCarryAdder$andGate, a, b));
+		var d = A2($author$project$RippleCarryAdder$orGate, a, b);
+		var sumDigit = A2($author$project$RippleCarryAdder$andGate, d, e);
+		var carryOut = A2($author$project$RippleCarryAdder$andGate, a, b);
+		return {carry: carryOut, sum: sumDigit};
+	});
+var $author$project$RippleCarryAdder$fullAdder = F3(
+	function (a, b, carryIn) {
+		var firstResult = A2($author$project$RippleCarryAdder$halfAdder, b, carryIn);
+		var secondResult = A2($author$project$RippleCarryAdder$halfAdder, a, firstResult.sum);
+		var finalCarry = A2($author$project$RippleCarryAdder$orGate, firstResult.carry, secondResult.carry);
+		return {carry: finalCarry, sum: secondResult.sum};
+	});
+var $author$project$RippleCarryAdderTests$fullAdderTests = A2(
+	$elm_explorations$test$Test$describe,
+	'Full adder',
+	_List_fromArray(
+		[
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when both inputs are 0',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0 too, then both sum and carry-out are 0',
+					function (_v0) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 0, sum: 0},
+							A3($author$project$RippleCarryAdder$fullAdder, 0, 0, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'but carry-in is 1, then sum is 1 and carry-out is 0',
+					function (_v1) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 0, sum: 1},
+							A3($author$project$RippleCarryAdder$fullAdder, 0, 0, 1));
+					})
+				])),
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when the 1st input is 0, and the 2nd input is 1',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0, then sum is 1 and carry-out is 0',
+					function (_v2) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 0, sum: 1},
+							A3($author$project$RippleCarryAdder$fullAdder, 0, 1, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 1, then sum is 0 and carry-out is 1',
+					function (_v3) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 1, sum: 0},
+							A3($author$project$RippleCarryAdder$fullAdder, 0, 1, 1));
+					})
+				])),
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when the 1st input is 1, and the 2nd input is 0',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0, then sum is 1 and carry-out is 0',
+					function (_v4) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 0, sum: 1},
+							A3($author$project$RippleCarryAdder$fullAdder, 1, 0, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 1, then sum is 0 and carry-out is 1',
+					function (_v5) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 1, sum: 0},
+							A3($author$project$RippleCarryAdder$fullAdder, 1, 0, 1));
+					})
+				])),
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when the 1st input is 1, and the 2nd input is 1',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0, then sum is 0 and carry-out is 1',
+					function (_v6) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 1, sum: 0},
+							A3($author$project$RippleCarryAdder$fullAdder, 1, 1, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 1, then sum is 1 and carry-out is 1',
+					function (_v7) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							{carry: 1, sum: 1},
+							A3($author$project$RippleCarryAdder$fullAdder, 1, 1, 1));
+					})
+				]))
+		]));
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
 		return A3(
@@ -3292,6 +3428,48 @@ var $author$project$Example$guardianNames = A2(
 					},
 					A2($elm$core$List$map, $elm$core$String$length, guardians))));
 	});
+var $author$project$RippleCarryAdderTests$halfAdderTests = A2(
+	$elm_explorations$test$Test$describe,
+	'HalfAdder tests',
+	_List_fromArray(
+		[
+			A2(
+			$elm_explorations$test$Test$test,
+			'sum and carry-out are 0 when both inputs are 0',
+			function (_v0) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					{carry: 0, sum: 0},
+					A2($author$project$RippleCarryAdder$halfAdder, 0, 0));
+			}),
+			A2(
+			$elm_explorations$test$Test$test,
+			'sum is 1 and carry out is 0 when 1st input is 0 and 2nd is 1',
+			function (_v1) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					{carry: 0, sum: 1},
+					A2($author$project$RippleCarryAdder$halfAdder, 1, 0));
+			}),
+			A2(
+			$elm_explorations$test$Test$test,
+			'sum is 1 and carry out is 0 when 1st input is 1 and 2nd is 0',
+			function (_v2) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					{carry: 0, sum: 1},
+					A2($author$project$RippleCarryAdder$halfAdder, 0, 1));
+			}),
+			A2(
+			$elm_explorations$test$Test$test,
+			' sum is 0 and carry out is 1 when both inputs are 1',
+			function (_v3) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					{carry: 1, sum: 0},
+					A2($author$project$RippleCarryAdder$halfAdder, 1, 1));
+			})
+		]));
 var $elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
 		return {$: 'Failure', a: a, b: b};
@@ -3628,19 +3806,6 @@ var $elm$core$Result$isOk = function (result) {
 	}
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var $author$project$RippleCarryAdder$inverter = function (a) {
-	switch (a) {
-		case 0:
-			return 1;
-		case 1:
-			return 0;
-		default:
-			return -1;
-	}
-};
 var $author$project$RippleCarryAdderTests$inverterTests = A2(
 	$elm_explorations$test$Test$describe,
 	'Inverter tests',
@@ -3665,11 +3830,6 @@ var $author$project$RippleCarryAdderTests$inverterTests = A2(
 					$author$project$RippleCarryAdder$inverter(0));
 			})
 		]));
-var $elm$core$Bitwise$or = _Bitwise_or;
-var $author$project$RippleCarryAdder$orGate = F2(
-	function (a, b) {
-		return a | b;
-	});
 var $author$project$RippleCarryAdderTests$orGateTests = A2(
 	$elm_explorations$test$Test$describe,
 	'OrGate tests',
@@ -3711,6 +3871,254 @@ var $author$project$RippleCarryAdderTests$orGateTests = A2(
 					1,
 					A2($author$project$RippleCarryAdder$orGate, 1, 1));
 			})
+		]));
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
+var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
+var $elm$core$Array$getHelp = F3(
+	function (shift, index, tree) {
+		getHelp:
+		while (true) {
+			var pos = $elm$core$Array$bitMask & (index >>> shift);
+			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (_v0.$ === 'SubTree') {
+				var subTree = _v0.a;
+				var $temp$shift = shift - $elm$core$Array$shiftStep,
+					$temp$index = index,
+					$temp$tree = subTree;
+				shift = $temp$shift;
+				index = $temp$index;
+				tree = $temp$tree;
+				continue getHelp;
+			} else {
+				var values = _v0.a;
+				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
+			}
+		}
+	});
+var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
+var $elm$core$Array$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var $elm$core$Array$get = F2(
+	function (index, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
+			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
+			A3($elm$core$Array$getHelp, startShift, index, tree)));
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$RippleCarryAdder$arrayToRecord = function (array) {
+	var thirdElement = A2(
+		$elm$core$Maybe$withDefault,
+		-1,
+		A2($elm$core$Array$get, 2, array));
+	var secondElement = A2(
+		$elm$core$Maybe$withDefault,
+		-1,
+		A2($elm$core$Array$get, 1, array));
+	var fourthElement = A2(
+		$elm$core$Maybe$withDefault,
+		-1,
+		A2($elm$core$Array$get, 3, array));
+	var firstElement = A2(
+		$elm$core$Maybe$withDefault,
+		-1,
+		A2($elm$core$Array$get, 0, array));
+	return {d0: firstElement, d1: secondElement, d2: thirdElement, d3: fourthElement};
+};
+var $author$project$RippleCarryAdder$digits = function (number) {
+	var getDigits = function (n) {
+		return (!n) ? _List_Nil : A2(
+			$elm$core$List$cons,
+			n % 10,
+			getDigits((n / 10) | 0));
+	};
+	return $elm$core$List$reverse(
+		getDigits(number));
+};
+var $elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
+			var jsArray = _v0.a;
+			var remainingItems = _v0.b;
+			if (_Utils_cmp(
+				$elm$core$Elm$JsArray$length(jsArray),
+				$elm$core$Array$branchFactor) < 0) {
+				return A2(
+					$elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					$elm$core$List$cons,
+					$elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var $elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return $elm$core$Array$empty;
+	} else {
+		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var $elm$core$List$repeatHelp = F3(
+	function (result, n, value) {
+		repeatHelp:
+		while (true) {
+			if (n <= 0) {
+				return result;
+			} else {
+				var $temp$result = A2($elm$core$List$cons, value, result),
+					$temp$n = n - 1,
+					$temp$value = value;
+				result = $temp$result;
+				n = $temp$n;
+				value = $temp$value;
+				continue repeatHelp;
+			}
+		}
+	});
+var $elm$core$List$repeat = F2(
+	function (n, value) {
+		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
+	});
+var $author$project$RippleCarryAdder$padZeros = F2(
+	function (total, list) {
+		var numberOfZeros = total - $elm$core$List$length(list);
+		return _Utils_ap(
+			A2($elm$core$List$repeat, numberOfZeros, 0),
+			list);
+	});
+var $author$project$RippleCarryAdder$extractDigits = function (number) {
+	return $author$project$RippleCarryAdder$arrayToRecord(
+		$elm$core$Array$fromList(
+			A2(
+				$author$project$RippleCarryAdder$padZeros,
+				4,
+				$author$project$RippleCarryAdder$digits(number))));
+};
+var $author$project$RippleCarryAdder$numberFromDigits = function (digitsList) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (digit, number) {
+				return digit + (10 * number);
+			}),
+		0,
+		digitsList);
+};
+var $author$project$RippleCarryAdder$rippleCarryAdder = F3(
+	function (a, b, carryIn) {
+		var secondSignal = $author$project$RippleCarryAdder$extractDigits(b);
+		var firstSignal = $author$project$RippleCarryAdder$extractDigits(a);
+		var firstResult = A3($author$project$RippleCarryAdder$fullAdder, firstSignal.d3, secondSignal.d3, carryIn);
+		var secondResult = A3($author$project$RippleCarryAdder$fullAdder, firstSignal.d2, secondSignal.d2, firstResult.carry);
+		var thirdResult = A3($author$project$RippleCarryAdder$fullAdder, firstSignal.d1, secondSignal.d1, secondResult.carry);
+		var finalResult = A3($author$project$RippleCarryAdder$fullAdder, firstSignal.d0, secondSignal.d0, thirdResult.carry);
+		return $author$project$RippleCarryAdder$numberFromDigits(
+			A2(
+				$elm$core$List$cons,
+				finalResult.carry,
+				A2(
+					$elm$core$List$map,
+					function ($) {
+						return $.sum;
+					},
+					_List_fromArray(
+						[finalResult, thirdResult, secondResult, firstResult]))));
+	});
+var $author$project$RippleCarryAdderTests$rippleCarryAdderTests = A2(
+	$elm_explorations$test$Test$describe,
+	'4-bit ripple carry adder',
+	_List_fromArray(
+		[
+			A2(
+			$elm_explorations$test$Test$describe,
+			'given two binary numbers and a carry-in digit',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'returns the sum of those numbers and a carry-out digit',
+					function (_v0) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							10111,
+							A3($author$project$RippleCarryAdder$rippleCarryAdder, 1001, 1101, 1));
+					})
+				])),
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when the 1st input is 1111, and the 2nd input is 1111',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0, the output is 11110',
+					function (_v1) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							11110,
+							A3($author$project$RippleCarryAdder$rippleCarryAdder, 1111, 1111, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 1, the output is 11111',
+					function (_v2) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							11111,
+							A3($author$project$RippleCarryAdder$rippleCarryAdder, 1111, 1111, 1));
+					})
+				])),
+			A2(
+			$elm_explorations$test$Test$describe,
+			'when the 1st input is 0000, and the 2nd input is 0000',
+			_List_fromArray(
+				[
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 0, the output is 0000',
+					function (_v3) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							0,
+							A3($author$project$RippleCarryAdder$rippleCarryAdder, 0, 0, 0));
+					}),
+					A2(
+					$elm_explorations$test$Test$test,
+					'and carry-in is 1, the output is 0001',
+					function (_v4) {
+						return A2(
+							$elm_explorations$test$Expect$equal,
+							1,
+							A3($author$project$RippleCarryAdder$rippleCarryAdder, 0, 0, 1));
+					})
+				]))
 		]));
 var $author$project$Test$Runner$Node$Receive = function (a) {
 	return {$: 'Receive', a: a};
@@ -4158,81 +4566,6 @@ var $elm$core$Basics$always = F2(
 	function (a, _v0) {
 		return a;
 	});
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
 var $elm$core$Array$length = function (_v0) {
 	var len = _v0.a;
 	return len;
@@ -4390,15 +4723,6 @@ var $elm$core$Array$set = F3(
 			startShift,
 			A4($elm$core$Array$setHelp, startShift, index, value, tree),
 			tail));
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
 	});
 var $author$project$Test$Runner$Node$Vendor$Diff$step = F4(
 	function (snake_, offset, k, v) {
@@ -6305,27 +6629,6 @@ var $author$project$Test$Reporter$TestResults$outcomesFromExpectationsHelp = F2(
 				{passes: builder.passes + 1});
 		}
 	});
-var $elm$core$List$repeatHelp = F3(
-	function (result, n, value) {
-		repeatHelp:
-		while (true) {
-			if (n <= 0) {
-				return result;
-			} else {
-				var $temp$result = A2($elm$core$List$cons, value, result),
-					$temp$n = n - 1,
-					$temp$value = value;
-				result = $temp$result;
-				n = $temp$n;
-				value = $temp$value;
-				continue repeatHelp;
-			}
-		}
-	});
-var $elm$core$List$repeat = F2(
-	function (n, value) {
-		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
-	});
 var $author$project$Test$Reporter$TestResults$outcomesFromExpectations = function (expectations) {
 	if (expectations.b) {
 		if (!expectations.b.b) {
@@ -6727,7 +7030,7 @@ var $author$project$Test$Generated$Main$main = A2(
 		processes: 4,
 		report: $author$project$Test$Reporter$Reporter$ConsoleReport($author$project$Console$Text$UseColor),
 		runs: 100,
-		seed: 204788239490077
+		seed: 216194462668461
 	},
 	_List_fromArray(
 		[
@@ -6746,13 +7049,16 @@ var $author$project$Test$Generated$Main$main = A2(
 				[
 					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$inverterTests),
 					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$andGateTests),
-					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$orGateTests)
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$orGateTests),
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$halfAdderTests),
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$fullAdderTests),
+					$author$project$Test$Runner$Node$check($author$project$RippleCarryAdderTests$rippleCarryAdderTests)
 				]))
 		]));
 _Platform_export({'Test':{'Generated':{'Main':{'init':$author$project$Test$Generated$Main$main($elm$json$Json$Decode$int)(0)}}}});}(this));
 return this.Elm;
 })({});
-var pipeFilename = "/tmp/elm_test-106682.sock";
+var pipeFilename = "/tmp/elm_test-107875.sock";
 var net = require('net'),
   client = net.createConnection(pipeFilename);
 
