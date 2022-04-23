@@ -346,8 +346,26 @@ list3 =
     []
 
 
+welcomeMessage : { a | isLoggedIn : Bool, name : String } -> String
+welcomeMessage { isLoggedIn, name } =
+    case isLoggedIn of
+        True ->
+            "Welcome " ++ name ++ "!"
+
+        False ->
+            "Please log in."
+
+
+type alias User =
+    { name : String
+    , email : toString
+    , age : Int
+    , isLoggedIn : Bool
+    }
+
+
 main : Html msg
 main =
     List.isEmpty list3
-        |> Debug.toString
+        |> Debug.toStringP
         |> text
