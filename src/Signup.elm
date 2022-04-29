@@ -1,7 +1,9 @@
 module Signup exposing (User)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Css exposing (..)
+import Html.Styled.Attributes exposing (..)
+import Html.Styled exposing (..)
+import VirtualDom
 
 type alias User =
     { name : String
@@ -23,27 +25,63 @@ initialModel =
 view : User -> Html msg
 view user =
     div []
-        [ h1 [] [ text "Sign up" ]
-        , Html.form []
+        [ h1 [ css [ paddingLeft (cm 3) ] ] [ text "Sign up" ]
+        , styledForm [] 
             [ div []
                 [ text "Name"
-                , input [ id "name", type_ "text" ] []
+                , styledInput [ id "name", type_ "text" ] []
                 ]
             , div []
                 [ text "Email"
-                , input [ id "email", type_ "text" ] []
+                , styledInput [ id "email", type_ "text" ] []
                 ]
             , div []
                 [ text "Password"
-                , input [ id "password", type_ "text" ] []
+                , styledInput [ id "password", type_ "text" ] []
                 ]
             , div []
-                [ button [ type_ "submit" ]
+                [ styledButton [ type_ "submit" ] 
                     [ text "Create my account" ]
                 ]
             ]
        ]
 
-main : Html msg
+main : VirtualDom.Node msg
 main = 
-    view initialModel
+    toUnstyled <| view initialModel
+
+
+styledForm : List (Attribute msg) -> List (Html msg) -> Html msg
+styledForm =
+    styled Html.Styled.form
+        [ borderRadius (px 5)
+        , backgroundColor (hex "#f2f2f2")
+        , padding (px 20)
+        , Css.width (px 300)
+        ]
+
+
+styledInput : List (Attribute msg) -> List (Html msg) -> Html msg
+styledInput =
+    styled Html.Styled.input
+        [ display block
+        , Css.width (px 260)
+        , padding2 (px 12) (px 20)
+        , margin2 (px 8) (px 0)
+        , border (px 0)
+        , borderRadius (px 4)
+        ]
+
+styledButton : List (Attribute msg) -> List (Html msg) -> Html msg
+styledButton = 
+    styled Html.Styled.button
+        [ Css.width (px 300)
+        , backgroundColor (hex "#397cd5")
+        , color (hex "#fff")
+        , padding2 (px 14) (px 20)
+        , marginTop (px 10)
+        , border (px 0)
+        , borderRadius (px 4)
+        , fontSize (px 16)
+        ]
+
