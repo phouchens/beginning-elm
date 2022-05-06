@@ -1,9 +1,10 @@
 module Signup exposing (User)
 
 import Css exposing (..)
-import Html.Styled.Attributes exposing (..)
 import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
 import VirtualDom
+
 
 type alias User =
     { name : String
@@ -26,7 +27,7 @@ view : User -> Html msg
 view user =
     div []
         [ h1 [ css [ paddingLeft (cm 3) ] ] [ text "Sign up" ]
-        , styledForm [] 
+        , styledForm []
             [ div []
                 [ text "Name"
                 , styledInput [ id "name", type_ "text" ] []
@@ -40,14 +41,15 @@ view user =
                 , styledInput [ id "password", type_ "text" ] []
                 ]
             , div []
-                [ styledButton [ type_ "submit" ] 
+                [ styledButton [ type_ "submit" ]
                     [ text "Create my account" ]
                 ]
             ]
-       ]
+        ]
+
 
 main : VirtualDom.Node msg
-main = 
+main =
     toUnstyled <| view initialModel
 
 
@@ -72,8 +74,9 @@ styledInput =
         , borderRadius (px 4)
         ]
 
+
 styledButton : List (Attribute msg) -> List (Html msg) -> Html msg
-styledButton = 
+styledButton =
     styled Html.Styled.button
         [ Css.width (px 300)
         , backgroundColor (hex "#397cd5")
@@ -84,4 +87,3 @@ styledButton =
         , borderRadius (px 4)
         , fontSize (px 16)
         ]
-
