@@ -2,15 +2,18 @@ module DecodingJson exposing (main)
 
 import Browser
 import Html exposing (..)
+import Html.Attributes exposing (href)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode exposing (..)
+import Json.Decode.Pipeline exposing (..)
 
 
 type alias Post =
     { id : Int
     , title : String
-    , author : String
+    , authorName : String
+    , authorUrl : String
     }
 
 
@@ -80,7 +83,7 @@ viewPost post =
         , td []
             [ text post.title ]
         , td []
-            [ text post.author ]
+            [ a [ href post.authorUrl ] [ text post.authorName ] ]
         ]
 
 
@@ -91,10 +94,11 @@ type Msg
 
 postDecoder : Decoder Post
 postDecoder =
-    map3 Post
-        (field "id" int)
-        (field "title" string)
-        (field "author" string)
+    Decode.succeed Post
+        |> required "id" int
+        |> required "title" string
+        |> required "authorName" string
+        |> required "authorUrl" string
 
 
 httpCommand : Cmd Msg
@@ -106,12 +110,56 @@ httpCommand =
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        SendHttpRequest ->
+            ( model, httpCommand )
+
+        DataReceived (Ok posts) ->
+            ( { model
+                | posts = posts
+                , errorMessage = Nothing
+              }
+            , Cmd.none
+            )
+
+        DataReceived (Err httpError) ->
+            ( { model | errorMessage = Just (buildErrorMessage httpError) }, Cmd.none )
 
 
 buildErrorMessage : Http.Error -> String
+buildErrorMessage httpError =
+    case httpError of
+        Http.BadUrl message ->
+            message
+
+        Http.Timeout ->
+            "Server is taking too long to respond. Please try again later"
+
+        Http.NetworkError ->
+            "Unable to reach server"
+
+        Http.BadStatus statusCode ->
+            "Request failed with status code :" ++ String.fromInt statusCode
+
+        Http.BadBody message ->
+            message
 
 
 init : () -> ( Model, Cmd Msg )
+init _ =
+    ( { posts = []
+      , errorMessage = Nothing
+      }
+    , Cmd.none
+    )
 
 
 main : Program () Model Msg
+main =
+    Browser.element
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = \_ -> Sub.none
+        }
